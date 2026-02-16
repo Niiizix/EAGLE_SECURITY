@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Eagle Security - Gestion des Employés">
+    <title>Eagle Security - Employés</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/employees.css">
+    <link rel="icon" type="image/png" href="images/patch.png">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar dashboard-navbar">
+        <div class="navbar-logo">
+            <a href="dashboard.html"><img src="images/logo-white.png" alt="Eagle Security Logo"></a>
+        </div>
+        
+        <!-- Menu Navigation -->
+        <ul class="navbar-menu dashboard-menu">
+            <li><a href="dashboard.html">Tableau de Bord</a></li>
+            <li><a href="employees.html" class="active">Employés</a></li>
+            <li><a href="submissions.html">Soumissions</a></li>
+            <li><a href="planning.html">Planning</a></li>
+            <li><a href="rapports.html">Rapports</a></li>
+        </ul>
+
+        <!-- User Info -->
+        <div class="navbar-user">
+            <div class="user-info">
+                <div class="user-avatar-nav" id="user-avatar-nav">
+                    <!-- Avatar will be loaded by JS -->
+                </div>
+                <div class="user-details">
+                    <span class="user-name" id="user-name">Chargement...</span>
+                    <span class="user-badge" id="user-badge">Badge #0000</span>
+                </div>
+            </div>
+            <a href="#" id="logout-btn" class="logout-link">
+                <img src="images/logout.png" alt="Déconnexion">
+            </a>
+        </div>
+
+        <!-- Burger Menu for Mobile -->
+        <div class="burger-menu" id="burger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- EMPLOYEES SECTION -->
+    <section class="dashboard-section employees-section">
+        <div class="employees-container">
+            
+            <!-- HEADER -->
+            <div class="employees-header">
+                <div class="header-title">
+                    <h1>Gestion des Employés</h1>
+                    <p>Liste complète du personnel Eagle Security</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-employees">0</span>
+                        <span class="stat-label">Employés</span>
+                    </div>
+                    <button id="add-employee-btn" class="btn-add-employee">
+                        <span>➕</span>
+                        <span>Ajouter un Agent</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SEARCH AND FILTERS -->
+            <div class="employees-toolbar">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="🔍 Rechercher par nom, badge ou email..."
+                        class="search-input"
+                    >
+                </div>
+                <div class="toolbar-actions">
+                    <button id="filter-btn" class="btn-filter">
+                        <span class="filter-icon">🔧</span>
+                        <span class="filter-text">Filtres</span>
+                        <span class="filter-count" id="filter-count" style="display: none;">0</span>
+                    </button>
+                    <button id="export-btn" class="btn-export">
+                        <span>📊</span>
+                        <span>Exporter</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- EMPLOYEES TABLE -->
+            <div class="employees-table-container">
+                <table class="employees-table" id="employees-table">
+                    <thead>
+                        <tr>
+                            <th data-sort="name">
+                                Nom 
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                            <th data-sort="badge">
+                                Badge
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                            <th data-sort="rank">
+                                Grade
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                            <th data-sort="email">
+                                E-Mail
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                            <th data-sort="hired">
+                                Date d'arrivée
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                            <th data-sort="login">
+                                Dernier Login
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="employees-tbody">
+                        <!-- Chargement... -->
+                        <tr class="loading-row">
+                            <td colspan="6" class="loading-cell">
+                                <div class="loader">⏳ Chargement des données...</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="employees-pagination" id="pagination">
+                <div class="pagination-info">
+                    Affichage de <span id="showing-from">0</span> à <span id="showing-to">0</span> sur <span id="total-records">0</span> employés
+                </div>
+                <div class="pagination-controls">
+                    <button class="page-btn" id="prev-page" disabled>← Précédent</button>
+                    <div class="page-numbers" id="page-numbers"></div>
+                    <button class="page-btn" id="next-page">Suivant →</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FILTER POPUP -->
+    <div class="filter-overlay" id="filter-overlay">
+        <div class="filter-popup">
+            <div class="filter-header">
+                <h2>🔧 Filtres Avancés</h2>
+                <button class="close-filter" id="close-filter">✕</button>
+            </div>
+
+            <div class="filter-body">
+                
+                <!-- Filtre Grade -->
+                <div class="filter-group">
+                    <label class="filter-label">Grade</label>
+                    <select id="filter-rank" class="filter-select">
+                        <option value="">Tous les grades</option>
+                        <!-- Options chargées dynamiquement -->
+                    </select>
+                </div>
+
+                <!-- Filtre Date d'arrivée -->
+                <div class="filter-group">
+                    <label class="filter-label">Arrivé après le</label>
+                    <input type="date" id="filter-hired-after" class="filter-input">
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Arrivé avant le</label>
+                    <input type="date" id="filter-hired-before" class="filter-input">
+                </div>
+
+                <!-- Filtre Dernier Login -->
+                <div class="filter-group">
+                    <label class="filter-label">Dernier login</label>
+                    <select id="filter-login" class="filter-select">
+                        <option value="">Tous</option>
+                        <option value="today">Aujourd'hui</option>
+                        <option value="week">Cette semaine</option>
+                        <option value="month">Ce mois-ci</option>
+                        <option value="inactive-week">Inactif depuis +7 jours</option>
+                        <option value="inactive-month">Inactif depuis +30 jours</option>
+                        <option value="never">Jamais connecté</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="filter-footer">
+                <button class="btn-reset" id="reset-filters">Réinitialiser</button>
+                <button class="btn-apply" id="apply-filters">Appliquer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMPLOYEE DETAIL MODAL -->
+    <div class="employee-modal-overlay" id="employee-modal-overlay">
+        <div class="employee-modal">
+            <!-- Modal Header -->
+            <div class="employee-modal-header">
+                <h2>Profil Employé</h2>
+                <div class="modal-header-actions">
+                    <button class="delete-employee-btn" id="delete-employee-btn" title="Supprimer l'agent">
+                        🗑️
+                    </button>
+                    <button class="close-employee-modal" id="close-employee-modal">✕</button>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="employee-modal-body">
+                
+                <!-- Left Panel - Employee Info -->
+                <div class="employee-info-panel">
+                    <div class="employee-avatar-large" id="modal-avatar">
+                        <!-- Avatar image or initials -->
+                        <div class="avatar-upload-overlay">📸 Changer la photo</div>
+                    </div>
+                    <input type="file" id="avatar-upload-input" class="avatar-upload-input" accept="image/*">
+                    <div class="employee-rank-badge" id="modal-rank">Agent</div>
+                    <h3 class="employee-name-display" id="modal-name">John Doe</h3>
+                    
+                    <div class="employee-info-list">
+                        <div class="employee-info-item">
+                            <span class="employee-info-label">📧 Email</span>
+                            <span class="employee-info-value" id="modal-email">-</span>
+                        </div>
+                        <div class="employee-info-item">
+                            <span class="employee-info-label">📞 Téléphone</span>
+                            <span class="employee-info-value" id="modal-phone">-</span>
+                        </div>
+                        <div class="employee-info-item">
+                            <span class="employee-info-label">🎫 Badge</span>
+                            <span class="employee-info-value badge" id="modal-badge">-</span>
+                        </div>
+                        <div class="employee-info-item">
+                            <span class="employee-info-label">📅 Date d'entrée</span>
+                            <span class="employee-info-value" id="modal-hired">-</span>
+                        </div>
+                        <div class="employee-info-item">
+                            <span class="employee-info-label">🕐 Dernier login</span>
+                            <span class="employee-info-value" id="modal-login">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Notes & Sanctions -->
+                <div class="employee-details-panel">
+                    
+                    <!-- Notes Section -->
+                    <div class="detail-section">
+                        <div class="detail-section-header">
+                            <h3>
+                                <span class="section-icon">📝</span>
+                                Notes
+                            </h3>
+                            <button class="add-note-btn" id="add-note-btn">+ Ajouter</button>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="notes-list" id="notes-list">
+                                <div class="empty-notes">Aucune note</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sanctions Section -->
+                    <div class="detail-section">
+                        <div class="detail-section-header">
+                            <h3>
+                                <span class="section-icon">⚠️</span>
+                                Sanctions
+                            </h3>
+                            <button class="add-sanction-btn" id="add-sanction-btn">+ Ajouter</button>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="sanctions-list" id="sanctions-list">
+                                <div class="empty-sanctions">Aucune sanction</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container de notifications -->
+    <div id="notification-container"></div>
+
+    <script src="js/datetime-utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/employees.js"></script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Eagle Security - Gestion des Soumissions">
+    <title>Eagle Security - Soumissions</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/submissions.css">
+    <link rel="icon" type="image/png" href="images/patch.png">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar dashboard-navbar">
+        <div class="navbar-logo">
+            <a href="dashboard.html"><img src="images/logo-white.png" alt="Eagle Security Logo"></a>
+        </div>
+        
+        <!-- Menu Navigation -->
+        <ul class="navbar-menu dashboard-menu">
+            <li><a href="dashboard.html">Tableau de Bord</a></li>
+            <li><a href="employees.html">Employés</a></li>
+            <li><a href="submissions.html" class="active">Soumissions</a></li>
+            <li><a href="planning.html">Planning</a></li>
+            <li><a href="rapports.html">Rapports</a></li>
+        </ul>
+
+        <!-- User Info -->
+        <div class="navbar-user">
+            <div class="user-info">
+                <div class="user-avatar-nav" id="user-avatar-nav">
+                    <!-- Avatar will be loaded by JS -->
+                </div>
+                <div class="user-details">
+                    <span class="user-name" id="user-name">Chargement...</span>
+                    <span class="user-badge" id="user-badge">Badge #0000</span>
+                </div>
+            </div>
+            <a href="#" id="logout-btn" class="logout-link">
+                <img src="images/logout.png" alt="Déconnexion">
+            </a>
+        </div>
+
+        <!-- Burger Menu for Mobile -->
+        <div class="burger-menu" id="burger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- SUBMISSIONS SECTION -->
+    <section class="dashboard-section submissions-section">
+        <div class="submissions-container">
+            
+            <!-- HEADER -->
+            <div class="submissions-header">
+                <div class="header-title">
+                    <h1>Gestion des Soumissions</h1>
+                    <p>Formulaires de contact, candidatures et demandes clients</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-pending">0</span>
+                        <span class="stat-label">En attente</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-processed">0</span>
+                        <span class="stat-label">Traités</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-archived">0</span>
+                        <span class="stat-label">Archivés</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEARCH AND FILTERS -->
+            <div class="submissions-toolbar">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="🔍 Rechercher par nom, email ou référence..."
+                        class="search-input"
+                    >
+                </div>
+                <div class="toolbar-actions">
+                    <button id="filter-btn" class="btn-filter">
+                        <span class="filter-icon">🔧</span>
+                        <span class="filter-text">Filtres</span>
+                        <span class="filter-count" id="filter-count" style="display: none;">0</span>
+                    </button>
+                    <button id="refresh-btn" class="btn-refresh">
+                        <span>🔄</span>
+                        <span>Actualiser</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUBMISSIONS TABLE -->
+            <div class="submissions-table-container">
+                <table class="submissions-table" id="submissions-table">
+                    <thead>
+                        <tr>
+                            <th data-sort="date">
+                                Date 
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                            <th data-sort="type">
+                                Type
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                            <th data-sort="name">
+                                Nom
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                            <th data-sort="email">
+                                Email
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                            <th data-sort="status">
+                                Statut
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                            <th data-sort="handler">
+                                Pris en charge par
+                                <span class="sort-icon">⬍</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="submissions-tbody">
+                        <!-- Chargement... -->
+                        <tr class="loading-row">
+                            <td colspan="6" class="loading-cell">
+                                <div class="loader">⏳ Chargement des données...</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="submissions-pagination" id="pagination">
+                <div class="pagination-info">
+                    Affichage de <span id="showing-from">0</span> à <span id="showing-to">0</span> sur <span id="total-records">0</span> soumissions
+                </div>
+                <div class="pagination-controls">
+                    <button class="page-btn" id="prev-page" disabled>← Précédent</button>
+                    <div class="page-numbers" id="page-numbers"></div>
+                    <button class="page-btn" id="next-page">Suivant →</button>
+                </div>
+            </div>
+
+            <!-- ARCHIVES SECTION (COLLAPSIBLE) -->
+            <div class="archives-section" id="archives-section">
+                <button class="archives-toggle" id="archives-toggle">
+                    <span class="toggle-icon">▶</span>
+                    <span class="toggle-text">Archives (<span id="archives-count">0</span>)</span>
+                </button>
+                <div class="archives-content" id="archives-content" style="display: none;">
+                    <table class="submissions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Archivé par</th>
+                                <th>Date d'archivage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="archives-tbody">
+                            <tr class="empty-row">
+                                <td colspan="6">Aucune archive</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FILTER POPUP -->
+    <div class="filter-overlay" id="filter-overlay">
+        <div class="filter-popup">
+            <div class="filter-header">
+                <h2>🔧 Filtres Avancés</h2>
+                <button class="close-filter" id="close-filter">✕</button>
+            </div>
+
+            <div class="filter-body">
+                
+                <!-- Filtre Type -->
+                <div class="filter-group">
+                    <label class="filter-label">Type de soumission</label>
+                    <select id="filter-type" class="filter-select">
+                        <option value="">Tous les types</option>
+                        <option value="recrutement">Recrutement</option>
+                        <option value="plainte">Plainte</option>
+                        <option value="rdv">Rendez-vous</option>
+                    </select>
+                </div>
+
+                <!-- Filtre Statut -->
+                <div class="filter-group">
+                    <label class="filter-label">Statut</label>
+                    <select id="filter-status" class="filter-select">
+                        <option value="">Tous les statuts</option>
+                        <option value="pending">En attente</option>
+                        <option value="processed">Traité</option>
+                    </select>
+                </div>
+
+                <!-- Filtre Date -->
+                <div class="filter-group">
+                    <label class="filter-label">Soumis après le</label>
+                    <input type="date" id="filter-date-after" class="filter-input">
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Soumis avant le</label>
+                    <input type="date" id="filter-date-before" class="filter-input">
+                </div>
+
+                <!-- Filtre Pris en charge -->
+                <div class="filter-group">
+                    <label class="filter-label">Pris en charge</label>
+                    <select id="filter-handled" class="filter-select">
+                        <option value="">Tous</option>
+                        <option value="yes">Oui</option>
+                        <option value="no">Non</option>
+                        <option value="me">Par moi</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="filter-footer">
+                <button class="btn-reset" id="reset-filters">Réinitialiser</button>
+                <button class="btn-apply" id="apply-filters">Appliquer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUBMISSION DETAIL MODAL -->
+    <div class="submission-modal-overlay" id="submission-modal-overlay">
+        <div class="submission-modal">
+            <!-- Modal Header -->
+            <div class="submission-modal-header">
+                <h2>Détails de la Soumission</h2>
+                <div class="modal-header-actions">
+                    <button class="delete-submission-btn" id="delete-submission-btn" style="display: none;" title="Supprimer définitivement">
+                        🗑️
+                    </button>
+                    <button class="close-submission-modal" id="close-submission-modal">✕</button>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="submission-modal-body">
+                
+                <!-- Left Panel - Submission Info -->
+                <div class="submission-info-panel">
+                    <div class="submission-type-badge" id="modal-type-badge">Recrutement</div>
+                    <h3 class="submission-name-display" id="modal-name">John Doe</h3>
+                    
+                    <div class="submission-info-list">
+                        <div class="submission-info-item">
+                            <span class="submission-info-label">📧 Email</span>
+                            <span class="submission-info-value" id="modal-email">-</span>
+                        </div>
+                        <div class="submission-info-item">
+                            <span class="submission-info-label">📞 Téléphone</span>
+                            <span class="submission-info-value" id="modal-phone">-</span>
+                        </div>
+                        <div class="submission-info-item">
+                            <span class="submission-info-label">📅 Date de soumission</span>
+                            <span class="submission-info-value" id="modal-date">-</span>
+                        </div>
+                        <div class="submission-info-item">
+                            <span class="submission-info-label">📊 Statut</span>
+                            <span class="submission-info-value" id="modal-status">-</span>
+                        </div>
+                        <div class="submission-info-item">
+                            <span class="submission-info-label">👤 Pris en charge par</span>
+                            <span class="submission-info-value" id="modal-handler">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="submission-actions">
+                        <button class="btn-take-charge" id="btn-take-charge">
+                            <span>✋</span>
+                            <span>Prendre en charge</span>
+                        </button>
+                        <button class="btn-archive" id="btn-archive">
+                            <span>📦</span>
+                            <span>Archiver</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Details & Notes -->
+                <div class="submission-details-panel">
+                    
+                    <!-- Specific Data Section -->
+                    <div class="detail-section">
+                        <div class="detail-section-header">
+                            <h3>
+                                <span class="section-icon">📋</span>
+                                Détails Spécifiques
+                            </h3>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="specific-data" id="specific-data">
+                                <!-- Données spécifiques selon le type -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notes Section -->
+                    <div class="detail-section">
+                        <div class="detail-section-header">
+                            <h3>
+                                <span class="section-icon">📝</span>
+                                Notes Internes
+                            </h3>
+                            <button class="add-note-btn" id="add-note-btn">+ Ajouter</button>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="notes-list" id="notes-list">
+                                <div class="empty-notes">Aucune note interne</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container de notifications -->
+    <div id="notification-container"></div>
+
+    <script src="js/datetime-utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/submissions.js"></script>
+</body>
+</html>

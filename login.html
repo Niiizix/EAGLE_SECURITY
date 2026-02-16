@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Eagle Security - Connexion Employés">
+    <title>Eagle Security - Connexion</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="icon" type="image/png" href="images/patch.png">
+</head>
+<body class="login-body">
+    <!-- POPUP LOGIN -->
+    <div class="login-overlay">
+        <div class="login-popup">
+            <!-- Logo et Header -->
+            <div class="login-popup-header">
+                <img src="images/patch.png" alt="Eagle Security" class="login-popup-logo">
+                <h2>Espace Employé</h2>
+                <p>Accès sécurisé réservé au personnel</p>
+            </div>
+
+            <!-- Formulaire -->
+            <form id="login-form" class="login-popup-form">
+                <div class="login-input-group">
+                    <label for="email">Email Professionnel</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        placeholder="votre.nom@eaglesecurity.com"
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="login-input-group">
+                    <label for="password">Mot de Passe</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required 
+                        placeholder="••••••••"
+                        autocomplete="current-password"
+                    >
+                </div>
+
+                <button type="submit" class="login-submit-btn" id="login-submit">
+                    <span class="btn-text">Se Connecter</span>
+                    <span class="btn-loader">⏳</span>
+                </button>
+            </form>
+
+            <!-- Footer -->
+            <div class="login-popup-footer">
+                <p>🔒 Connexion sécurisée</p>
+                <a href="index.html" class="back-to-site">← Retour au site</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container de notifications -->
+    <div id="notification-container"></div>
+
+    <script src="js/datetime-utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

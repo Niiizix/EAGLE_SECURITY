@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Eagle Security - Contact">
+    <title>Eagle Security - Contact</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="icon" type="image/png" href="images/logo-white.png">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="index.html"><img src="images/logo-white.png" alt="Eagle Security Logo"></a>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">À Propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html"><img src="images/login.png"></a></li>
+        </ul>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="hero" style="height: 50vh; min-height: 400px;">
+        <div class="hero-content">
+            <h1>CONTACTEZ-<span>NOUS</span></h1>
+            <p>Notre équipe est disponible 24/7 pour répondre à vos besoins</p>
+        </div>
+    </section>
+
+    <!-- CONTACT INFO SECTION -->
+    <section class="section">
+        <div class="section-title">
+            <h2>Nos Coordonnées</h2>
+            <p>Plusieurs moyens de nous joindre selon vos préférences</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-item">
+                <div class="value-icon">📍</div>
+                <h3>Adresse</h3>
+                <p>Popular Street<br>Los Santos, San Andreas</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">📞</div>
+                <h3>Téléphone</h3>
+                <p>Standard: Services App</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">✉️</div>
+                <h3>Email</h3>
+                <p>contact@eaglesecurity.com</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORMS SECTION -->
+    <section class="section" style="background: #1A1A1A;">
+        <div class="section-title">
+            <h2>Formulaires de Contact</h2>
+            <p>Sélectionnez le type de demande qui correspond à vos besoins</p>
+        </div>
+
+        <div class="contact-container">
+            <!-- FORM SELECTOR -->
+            <div class="form-selector">
+                <button class="form-selector-btn active" data-form="recrutement">Recrutement</button>
+                <button class="form-selector-btn" data-form="plainte">Déposer une Plainte</button>
+                <button class="form-selector-btn" data-form="rdv">Prendre RDV</button>
+            </div>
+
+            <!-- FORM 1: RECRUTEMENT -->
+            <form class="contact-form active" id="form-recrutement">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: var(--light-text);">Candidature</h3>
+                
+                <div class="form-group">
+                    <label for="recru-nom">Nom complet *</label>
+                    <input type="text" id="recru-nom" name="nom" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="recru-email">Email *</label>
+                    <input type="email" id="recru-email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="recru-tel">Téléphone *</label>
+                    <input type="tel" id="recru-tel" name="telephone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="recru-experience">Années d'expérience dans la sécurité *</label>
+                    <select id="recru-experience" name="experience" required>
+                        <option value="">-- Sélectionnez --</option>
+                        <option value="aucune">Aucune expérience</option>
+                        <option value="0-1">Moins d'1 an</option>
+                        <option value="1-3">1 à 3 ans</option>
+                        <option value="3-5">3 à 5 ans</option>
+                        <option value="5-10">5 à 10 ans</option>
+                        <option value="10+">Plus de 10 ans</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="recru-cv">CV (PDF) *</label>
+                    <input type="file" id="recru-cv" name="cv" accept=".pdf" required>
+                    <small style="color: #666; display: block; margin-top: 0.5rem;">
+                        Format PDF uniquement, taille max: 5 MB
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="recru-certifications">Certifications et formations</label>
+                    <textarea id="recru-certifications" name="certifications" placeholder="Listez vos certifications, formations militaires ou policières, permis spéciaux, etc."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="recru-motivation">Lettre de motivation *</label>
+                    <textarea id="recru-motivation" name="motivation" required placeholder="Expliquez pourquoi vous souhaitez rejoindre Eagle Security et ce qui vous qualifie pour ce poste."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Soumettre ma Candidature</button>
+            </form>
+
+            <!-- FORM 2: PLAINTE -->
+            <form class="contact-form" id="form-plainte">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: var(--light-text);">Déposer une Plainte</h3>
+                
+                <div class="form-group">
+                    <label for="plainte-nom">Nom complet *</label>
+                    <input type="text" id="plainte-nom" name="nom" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="plainte-email">Email *</label>
+                    <input type="email" id="plainte-email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="plainte-tel">Téléphone</label>
+                    <input type="tel" id="plainte-tel" name="telephone">
+                </div>
+
+                <div class="form-group">
+                    <label for="plainte-client">Êtes-vous client Eagle Security ?</label>
+                    <select id="plainte-client" name="client">
+                        <option value="oui">Oui, client actuel</option>
+                        <option value="ancien">Ancien client</option>
+                        <option value="non">Non</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="plainte-ref">Numéro de contrat / référence (si applicable)</label>
+                    <input type="text" id="plainte-ref" name="reference">
+                </div>
+
+                <div class="form-group">
+                    <label for="plainte-date">Date de l'incident *</label>
+                    <input type="date" id="plainte-date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="plainte-type">Type de plainte *</label>
+                    <select id="plainte-type" name="type" required>
+                        <option value="">-- Sélectionnez --</option>
+                        <option value="service">Qualité du service</option>
+                        <option value="comportement">Comportement d'un agent</option>
+                        <option value="facturation">Problème de facturation</option>
+                        <option value="incident">Incident de sécurité</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="plainte-description">Description détaillée de la plainte *</label>
+                    <textarea id="plainte-description" name="description" required placeholder="Décrivez les faits de manière précise : date, heure, lieu, personnes impliquées, nature du problème, etc."></textarea>
+                </div>
+
+                <p style="color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                    Votre plainte sera traitée avec la plus grande attention. Notre équipe de conformité vous contactera sous 48 heures.
+                </p>
+
+                <button type="submit" class="submit-btn">Soumettre la Plainte</button>
+            </form>
+
+            <!-- FORM 3: RENDEZ-VOUS -->
+            <form class="contact-form" id="form-rdv">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: var(--light-text);">Prendre Rendez-vous</h3>
+                
+                <div class="form-group">
+                    <label for="rdv-nom">Nom complet *</label>
+                    <input type="text" id="rdv-nom" name="nom" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rdv-entreprise">Entreprise / Organisation</label>
+                    <input type="text" id="rdv-entreprise" name="entreprise">
+                </div>
+
+                <div class="form-group">
+                    <label for="rdv-email">Email *</label>
+                    <input type="email" id="rdv-email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rdv-tel">Téléphone *</label>
+                    <input type="tel" id="rdv-tel" name="telephone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rdv-type">Type de rendez-vous *</label>
+                    <select id="rdv-type" name="type" required>
+                        <option value="">-- Sélectionnez --</option>
+                        <option value="consultation">Consultation Sécurité</option>
+                        <option value="evaluation">Évaluation de Site</option>
+                        <option value="presentation">Présentation Services</option>
+                        <option value="suivi">Suivi Client Existant</option>
+                        <option value="autre">Autre Motif</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="rdv-date">Date souhaitée *</label>
+                    <input type="date" id="rdv-date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rdv-heure">Heure souhaitée *</label>
+                    <input type="time" id="rdv-heure" name="heure" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rdv-lieu">Lieu préféré *</label>
+                    <select id="rdv-lieu" name="lieu" required>
+                        <option value="">-- Sélectionnez --</option>
+                        <option value="bureau-eagle">Nos bureaux (Los Angeles)</option>
+                        <option value="votre-lieu">Votre lieu (déplacement)</option>
+                        <option value="visio">Visioconférence</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="rdv-message">Objet du rendez-vous *</label>
+                    <textarea id="rdv-message" name="message" required placeholder="Décrivez brièvement le sujet que vous souhaitez aborder lors de ce rendez-vous."></textarea>
+                </div>
+
+                <p style="color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                    Notre équipe vous confirmera votre rendez-vous dans les 24 heures. En cas d'urgence, appelez directement notre standard.
+                </p>
+
+                <button type="submit" class="submit-btn">Réserver le Rendez-vous</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Eagle Security</h3>
+                <p>Protection d'élite a travers la Californie depuis 2010. Nous offrons des solutions de sécurité professionnelles adaptées à vos besoins spécifiques.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="services.html">Protection de Sites</a>
+                <a href="services.html">Escortes Sécurisées</a>
+                <a href="services.html">Protection Rapprochée</a>
+                <a href="services.html">Transport de Fonds</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>📍 Popular Street<br>Los Santos, San Andreas</p>
+                <p>📞 Services App</p>
+                <p>✉️ contact@eaglesecurity.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <a href="index.html">Accueil</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">À Propos</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Niizix - Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <div id="notification-container"></div>
+
+    <script src="js/datetime-utils.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>

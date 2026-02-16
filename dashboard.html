@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Eagle Security - Tableau de bord employé">
+    <title>Eagle Security - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/png" href="images/patch.png">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar dashboard-navbar">
+        <div class="navbar-logo">
+            <a href="dashboard.html"><img src="images/logo-white.png" alt="Eagle Security Logo"></a>
+        </div>
+        
+        <!-- Menu Navigation -->
+        <ul class="navbar-menu dashboard-menu">
+            <li><a href="dashboard.html" class="active">Tableau de Bord</a></li>
+            <li><a href="employees.html">Employés</a></li>
+            <li><a href="submissions.html">Soumissions</a></li>
+            <li><a href="rapports.html">Rapports</a></li>
+            <li><a href="equipement.html">Équipement</a></li>
+        </ul>
+
+        <!-- User Info -->
+        <div class="navbar-user">
+            <div class="user-info">
+                <div class="user-avatar" id="user-avatar">JD</div>
+                <div class="user-details">
+                    <span class="user-name" id="user-name">Chargement...</span>
+                    <span class="user-badge" id="user-badge">Badge #0000</span>
+                </div>
+            </div>
+            <a href="#" id="logout-btn" class="logout-link">
+                <img src="images/logout.png" alt="Déconnexion">
+            </a>
+        </div>
+
+        <!-- Burger Menu for Mobile -->
+        <div class="burger-menu" id="burger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- DASHBOARD CONTENT -->
+    <section class="dashboard-section">
+        <div class="dashboard-container">
+            
+            <!-- COLONNE GAUCHE -->
+            <div class="dashboard-left">
+                
+                <!-- CONTRATS EN COURS -->
+                <div class="dashboard-card card-contracts">
+                    <div class="card-header">
+                        <h3>📋 Contrats en Cours</h3>
+                        <span class="badge">5 actifs</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="contract-list">
+                            <div class="contract-item">
+                                <div class="contract-info">
+                                    <h4>Protection VIP - Johnson Estate</h4>
+                                    <p class="contract-date">15 Feb - 28 Feb 2026</p>
+                                    <span class="contract-status status-active">En cours</span>
+                                </div>
+                                <div class="contract-badge">VIP</div>
+                            </div>
+
+                            <div class="contract-item">
+                                <div class="contract-info">
+                                    <h4>Sécurité Site - Tech Corp HQ</h4>
+                                    <p class="contract-date">01 Feb - 31 Mar 2026</p>
+                                    <span class="contract-status status-active">En cours</span>
+                                </div>
+                                <div class="contract-badge">Site</div>
+                            </div>
+
+                            <div class="contract-item">
+                                <div class="contract-info">
+                                    <h4>Transport de Fonds - First Bank</h4>
+                                    <p class="contract-date">10 Feb - 10 Mar 2026</p>
+                                    <span class="contract-status status-active">En cours</span>
+                                </div>
+                                <div class="contract-badge">Fonds</div>
+                            </div>
+
+                            <div class="contract-item upcoming">
+                                <div class="contract-info">
+                                    <h4>Escorte Sécurisée - Event LA</h4>
+                                    <p class="contract-date">20 Feb - 22 Feb 2026</p>
+                                    <span class="contract-status status-upcoming">À venir</span>
+                                </div>
+                                <div class="contract-badge">Escorte</div>
+                            </div>
+
+                            <div class="contract-item upcoming">
+                                <div class="contract-info">
+                                    <h4>Protection Rapprochée - CEO Summit</h4>
+                                    <p class="contract-date">05 Mar - 07 Mar 2026</p>
+                                    <span class="contract-status status-upcoming">À venir</span>
+                                </div>
+                                <div class="contract-badge">VIP</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTACTS SUPERVISEURS -->
+                <div class="dashboard-card card-contacts">
+                    <div class="card-header">
+                        <h3>📞 Contacts Superviseurs</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="contact-list">
+                            <div class="contact-item">
+                                <div class="contact-avatar">JD</div>
+                                <div class="contact-info">
+                                    <h4>John Doe</h4>
+                                    <p>Superviseur Principal</p>
+                                </div>
+                                <a href="tel:+13105559001" class="contact-phone">
+                                    📱 +1 (310) 555-9001
+                                </a>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-avatar">MB</div>
+                                <div class="contact-info">
+                                    <h4>Maria Bennett</h4>
+                                    <p>Ops Manager</p>
+                                </div>
+                                <a href="tel:+13105559002" class="contact-phone">
+                                    📱 +1 (310) 555-9002
+                                </a>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-avatar">TR</div>
+                                <div class="contact-info">
+                                    <h4>Thomas Rivera</h4>
+                                    <p>Superviseur Nuit</p>
+                                </div>
+                                <a href="tel:+13105559003" class="contact-phone">
+                                    📱 +1 (310) 555-9003
+                                </a>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-avatar">SC</div>
+                                <div class="contact-info">
+                                    <h4>Sarah Chen</h4>
+                                    <p>Coord. Logistique</p>
+                                </div>
+                                <a href="tel:+13105559004" class="contact-phone">
+                                    📱 +1 (310) 555-9004
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- COLONNE DROITE - LIENS RAPIDES -->
+            <div class="dashboard-right">
+                <div class="dashboard-card card-quicklinks">
+                    <div class="card-header">
+                        <h3>⚡ Accès Rapides</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="quicklinks-grid">
+                            
+                            <!-- Colonne 1 -->
+                            <a href="#" class="quicklink-item">
+                                <div class="quicklink-icon">📅</div>
+                                <h4>Planning</h4>
+                                <p>Mes horaires</p>
+                            </a>
+
+                            <a href="#" class="quicklink-item">
+                                <div class="quicklink-icon">📊</div>
+                                <h4>Rapports</h4>
+                                <p>Mes missions</p>
+                            </a>
+
+                            <a href="#" class="quicklink-item">
+                                <div class="quicklink-icon">💼</div>
+                                <h4>Équipement</h4>
+                                <p>Inventaire</p>
+                            </a>
+
+                            <a href="#" class="quicklink-item">
+                                <div class="quicklink-icon">📝</div>
+                                <h4>Incidents</h4>
+                                <p>Signaler</p>
+                            </a>
+
+                            <a href="#" class="quicklink-item">
+                                <div class="quicklink-icon">🚨</div>
+                                <h4>Urgences</h4>
+                                <p>Protocoles</p>
+                            </a>
+
+                            <!-- Colonne 2 -->
+                            <a href="#" class="quicklink-item">
+                                <div class="quicklink-icon">👥</div>
+                                <h4>Équipe</h4>
+                                <p>Annuaire</p>
+                            </a>
+
+                            <a href="#" class="quicklink-item">
+                                <div class="quicklink-icon">📚</div>
+                                <h4>Formations</h4>
+                                <p>Mes certifs</p>
+                            </a>
+
+                            <a href="#" class="quicklink-item">
+                                <div class="quicklink-icon">💰</div>
+                                <h4>Paie</h4>
+                                <p>Fiches de paie</p>
+                            </a>
+
+                            <a href="#" class="quicklink-item">
+                                <div class="quicklink-icon">⚙️</div>
+                                <h4>Paramètres</h4>
+                                <p>Mon compte</p>
+                            </a>
+
+                            <a href="#" class="quicklink-item">
+                                <div class="quicklink-icon">📞</div>
+                                <h4>Support IT</h4>
+                                <p>Assistance</p>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Container de notifications -->
+    <div id="notification-container"></div>
+
+    <script src="js/datetime-utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
